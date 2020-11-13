@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+
+
+  <script>
+    // base de redux
+    const createStore = (reducer, initialState) => {
+
+      let state = initialState;//eventualmente mi state tiene que cambiar.
+      let updater = () => {};
+      const getState = () => state;//devuelve mi estado inicial
+
+      const dispatch = (action) => {
+        // State es igual a la devolución de lo que hace mi reducer
+        state = reducer(state, action);//reducer evalua que esta pasando en mi state
+        //se actualiza mi state por el action de mi dispatch
+        updater();//mi udapter es mi listener
+      }
+      
+      const subcribe = (listener) => {
+        updater = listener  
+      }
+      return {
+        getState,
+        dispatch,
+        subcribe
+      }
+    }
+    
+    //sabemos que me llega mi state, action del dispatch, yo puedo hacer un cambio dentro de mi state
+    const reducer = (state, action) => {
+      return action 
+    }
+
+    const store = createStore(reducer, 'Estado inicial de la APP');//nuestra api que lo que necesitamos lograr.
+    //mi state va ser un string que va cambiar el tiempo 
+    store.dispatch();//le voy mandar acciones
+    store.getState();//me va devolver mi estado inicial
+    store.subcribe();//le voy a mandar una function() y cada vez que haya un cambio en el estado. por ejemplo si
+    //cambio el mensaje mi function subcribe se llamaría 
+
+    store.subcribe(() => {
+      console.log('ha cambiado algo en el store', store.getState());
+    });//suscribe le vamos a mandar una función cada vez que ocurra un cambio en el state
+    
+    store.dispatch('voy a cambiar algo');//como acción le estoy mandando un string, puedo mandarle un objeto un boleano algo que tengo que 
+    //iterpretar dentro. dentro de esta area.
+  </script>
+ 
+</body>
+</html>
