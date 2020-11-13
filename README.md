@@ -1,5 +1,3 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
 ## Redux vanilla js
 
 Este es un resumen de como funciona Redux, recreado con puro vanilla js
